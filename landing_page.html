@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>dev.learn — Level 1: Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0B1120;
+      color: #F0F6FF;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: sticky;
+      top: 0;
+      background: rgba(11,17,32,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #00D4FF;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .logo span { color: #FFB347; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(240,246,255,0.6);
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #00D4FF; }
+    .btn-nav {
+      background: #00D4FF;
+      color: #0B1120;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+    }
+    .btn-nav:hover { background: #33dcff; }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      padding: 4rem 2.5rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid rgba(0,212,255,0.25);
+      color: #00D4FF;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      margin-bottom: 1.3rem;
+      letter-spacing: 0.04em;
+    }
+    .pulse {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #00D4FF;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 em { font-style: normal; color: #00D4FF; }
+    .hero p {
+      color: rgba(240,246,255,0.6);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1.8rem;
+      max-width: 440px;
+    }
+    .btn-row { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: #00D4FF;
+      color: #0B1120;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,212,255,0.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: #F0F6FF;
+      border: 1px solid rgba(240,246,255,0.2);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: rgba(240,246,255,0.5); }
+
+    /* TERMINAL */
+    .terminal {
+      background: #0D1623;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+    }
+    .term-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.65rem 1rem;
+      background: #0B1120;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .term-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .term-title {
+      font-size: 0.7rem;
+      color: rgba(240,246,255,0.3);
+      margin: 0 auto;
+    }
+    .term-body { padding: 1.2rem; line-height: 1.85; min-height: 180px; }
+    .t-tag { color: #FF79C6; }
+    .t-attr { color: #50FA7B; }
+    .t-val { color: #F1FA8C; }
+    .t-txt { color: #CFD8DC; }
+    .t-cm { color: rgba(255,255,255,0.3); }
+    .cursor {
+      display: inline-block;
+      width: 9px; height: 15px;
+      background: #00D4FF;
+      animation: blink 1s step-end infinite;
+      vertical-align: -3px;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      padding: 1.5rem 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.2);
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #00D4FF;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: rgba(240,246,255,0.4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 3rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .eye {
+      font-size: 0.72rem;
+      color: #00D4FF;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+    .section-sub {
+      color: rgba(240,246,255,0.5);
+      font-size: 0.95rem;
+      margin-bottom: 2.2rem;
+      max-width: 520px;
+    }
+
+    /* CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem;
+    }
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.4rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .card:hover {
+      border-color: rgba(0,212,255,0.3);
+      background: rgba(0,212,255,0.05);
+    }
+    .card-icon { font-size: 1.6rem; margin-bottom: 0.85rem; }
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.45rem;
+      color: #F0F6FF;
+    }
+    .card p { font-size: 0.84rem; color: rgba(240,246,255,0.5); line-height: 1.65; }
+
+    /* PROJECTS */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+    }
+    .proj {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .proj:hover { transform: translateY(-4px); border-color: rgba(0,212,255,0.2); }
+    .proj-preview {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1.7;
+    }
+    .prev-purple { background: linear-gradient(135deg,#1a0533,#0B1120); color: #C084FC; }
+    .prev-green  { background: linear-gradient(135deg,#002a1a,#0B1120); color: #4ade80; }
+    .prev-amber  { background: linear-gradient(135deg,#1a1400,#0B1120); color: #fbbf24; }
+    .prev-blue   { background: linear-gradient(135deg,#00162a,#0B1120); color: #38bdf8; }
+    .proj-info { padding: 0.9rem 1.1rem; background: rgba(255,255,255,0.03); }
+    .proj-info h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .proj-info p { font-size: 0.78rem; color: rgba(240,246,255,0.4); }
+    .tags { display: flex; gap: 0.4rem; margin-top: 0.6rem; flex-wrap: wrap; }
+    .tag-badge {
+      font-size: 0.68rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(240,246,255,0.5);
+    }
+
+    /* FOOTER CTA */
+    .footer-cta-wrap { padding: 0 2.5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .footer-cta {
+      background: rgba(0,212,255,0.06);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 16px;
+      padding: 2.2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .footer-cta h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .footer-cta p { font-size: 0.88rem; color: rgba(240,246,255,0.5); }
+
+    /* FOOTER */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-txt { font-size: 0.78rem; color: rgba(240,246,255,0.3); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: 0.78rem;
+      color: rgba(240,246,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #00D4FF; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 2.5rem 1.5rem 2rem; }
+      .terminal { display: none; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .projects { grid-template-columns: 1fr; }
+      .stats { gap: 2rem; flex-wrap: wrap; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .footer-cta { flex-direction: column; align-items: flex-start; }
+      .section { padding: 2rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .cards { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#">dev<span>.</span>learn</a>
+    <ul class="nav-links">
+      <li><a href="#learn">Curriculum</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="#">Docs</a></li>
+    </ul>
+    <a class="btn-nav" href="#demo">Start Free →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        Level 1 · Beginner Path
+      </div>
+      <h1>Build your first<br><em>landing page</em><br>in HTML &amp; CSS</h1>
+      <p>Learn to create columns, sections, headers, and footers. Apply a real color palette, master padding and alignment — then ship something you're proud of.</p>
+      <div class="btn-row">
+        <a class="btn-primary" href="#learn">Start Building →</a>
+        <a class="btn-ghost" href="#projects">View Projects</a>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="term-dot" style="background:#ff5f57"></span>
+        <span class="term-dot" style="background:#febc2e"></span>
+        <span class="term-dot" style="background:#28c840"></span>
+        <span class="term-title">index.html</span>
+      </div>
+      <div class="term-body" id="term-output"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Core Skills</div></div>
+    <div class="stat"><div class="stat-num">2h</div><div class="stat-label">Avg. Completion</div></div>
+    <div class="stat"><div class="stat-num">12k+</div><div class="stat-label">Pages Shipped</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free to Start</div></div>
+  </div>
+
+  <!-- LEARN -->
+  <section class="section" id="learn">
+    <div class="eye">What you'll learn</div>
+    <h2>Core concepts, applied.</h2>
+    <p class="section-sub">Every skill in this project maps to something real you'll use in every web page you ever build.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⬜</div>
+        <h3>Sections &amp; Layout</h3>
+        <p>Divide a page into meaningful parts using divs, sections, and semantic HTML5 elements.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <h3>Color Palette</h3>
+        <p>Choose and apply a consistent set of colors using CSS custom properties and hex values.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📐</div>
+        <h3>Alignment &amp; Padding</h3>
+        <p>Control spacing, margins, and alignment so nothing overlaps and everything breathes.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📦</div>
+        <h3>Box Model</h3>
+        <p>Understand how every element occupies space with margin, border, padding, and content.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔤</div>
+        <h3>Headers &amp; Footers</h3>
+        <p>Structure your page with a sticky nav and an informative footer using semantic HTML.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧱</div>
+        <h3>Columns with Flexbox</h3>
+        <p>Arrange elements side by side using CSS Flexbox — the foundation of modern layout.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects" style="padding-top:0">
+    <div class="eye">Project Gallery</div>
+    <h2>Pages built by learners.</h2>
+    <p class="section-sub">Every one of these started as a blank HTML file. Yours is next.</p>
+    <div class="projects">
+      <div class="proj">
+        <div class="proj-preview prev-purple">
+          &lt;section class="hero"&gt;<br>
+          &nbsp;&nbsp;&lt;h1&gt;Hello World&lt;/h1&gt;<br>
+          &nbsp;&nbsp;&lt;p&gt;My first page.&lt;/p&gt;<br>
+          &lt;/section&gt;
+        </div>
+        <div class="proj-info">
+          <h4>Portfolio Hero Page</h4>
+          <p>Full-width hero with nav and CTA</p>
+          <div class="tags">
+            <span class="tag-badge">HTML</span>
+            <span class="tag-badge">CSS</span>
+            <span class="tag-badge">Flexbox</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj">
+        <div class="proj-preview prev-green">
+          .grid {<br>
+          &nbsp;&nbsp;display: grid;<br>
+          &nbsp;&nbsp;grid-template-columns:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;repeat(4, 1fr);<br>
+          }
+        </div>
+        <div class="proj-info">
+          <h4>Product Showcase</h4>
+          <p>Feature grid with card components</p>
+          <div class="tags">
+            <span class="tag-badge">HTML</span>
+            <span class="tag-badge">CSS Grid</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj">
+        <div class="proj-preview prev-amber">
+          :root {<br>
+          &nbsp;&nbsp;--primary: #6C63FF;<br>
+          &nbsp;&nbsp;--accent: #FF6584;<br>
+          &nbsp;&nbsp;--bg: #F9FAFB;<br>
+          }
+        </div>
+        <div class="proj-info">
+          <h4>Agency Landing Page</h4>
+          <p>CSS variables &amp; consistent theming</p>
+          <div class="tags">
+            <span class="tag-badge">CSS Variables</span>
+            <span class="tag-badge">Typography</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj">
+        <div class="proj-preview prev-blue">
+          @media (max-width: 768px) {<br>
+          &nbsp;&nbsp;.hero {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;flex-direction: column;<br>
+          &nbsp;&nbsp;}<br>
+          }
+        </div>
+        <div class="proj-info">
+          <h4>Responsive Blog Home</h4>
+          <p>Mobile-first layout with media queries</p>
+          <div class="tags">
+            <span class="tag-badge">Responsive</span>
+            <span class="tag-badge">Media Queries</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <div class="footer-cta-wrap" id="demo">
+    <div class="footer-cta">
+      <div>
+        <h3>Ready to build your page?</h3>
+        <p>All you need is a text editor and a browser. No setup required.</p>
+      </div>
+      <a class="btn-primary" href="#learn">Click Here to Demo →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-txt">© 2026 dev.learn · Built with HTML &amp; CSS</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">GitHub</a>
+      <a href="#">Discord</a>
+    </div>
+  </footer>
+
+  <script>
+    const lines = [
+      '<span class="t-cm">&lt;!-- Level 1: Landing Page --&gt;</span>',
+      '<span class="t-tag">&lt;section</span> <span class="t-attr">class</span>=<span class="t-val">"hero"</span><span class="t-tag">&gt;</span>',
+      '&nbsp;&nbsp;<span class="t-tag">&lt;h1&gt;</span><span class="t-txt">Hello, World!</span><span class="t-tag">&lt;/h1&gt;</span>',
+      '&nbsp;&nbsp;<span class="t-tag">&lt;p</span> <span class="t-attr">class</span>=<span class="t-val">"subtitle"</span><span class="t-tag">&gt;</span>',
+      '&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-txt">My first landing page.</span>',
+      '&nbsp;&nbsp;<span class="t-tag">&lt;/p&gt;</span>',
+      '&nbsp;&nbsp;<span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cta"</span><span class="t-tag">&gt;</span>',
+      '&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-txt">Click Here</span>',
+      '&nbsp;&nbsp;<span class="t-tag">&lt;/button&gt;</span>',
+      '<span class="t-tag">&lt;/section&gt;</span>'
+    ];
+    const out = document.getElementById('term-output');
+    let i = 0;
+    const cursor = '<span class="cursor"></span>';
+    function nextLine() {
+      if (i < lines.length) {
+        out.innerHTML = lines.slice(0, i + 1).join('<br>') + cursor;
+        i++;
+        setTimeout(nextLine, Math.random() * 130 + 80);
+      } else {
+        setTimeout(() => { i = 0; out.innerHTML = ''; setTimeout(nextLine, 500); }, 3000);
+      }
+    }
+    setTimeout(nextLine, 700);
+  </script>
+</body>
+</html>
